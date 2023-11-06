@@ -6,7 +6,7 @@ services:
       context: ./
     image: flask-app
     ports:
-      - "8000:8080"
+      - "8000:8000"
     volumes:
       - ./app.py:/app/app.py
       - ./load_db.py:/app/load_db.py
