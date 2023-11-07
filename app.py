@@ -11,10 +11,10 @@ def hello():
 
 @app.route("/data")
 def data():
-    return "Data endpoint"
     engine = create_engine("mysql+pymysql://user:Password123.@mysql-db/odb")
     inspector = inspect(engine)
     table_names = inspector.get_table_names()
+    return str(table_names)
 
 
 if __name__ == "__main__":
