@@ -14,7 +14,7 @@ def data():
     engine = create_engine("mysql+pymysql://user:Password123.@mysql-db/odb")
     inspector = inspect(engine)
     table_names = inspector.get_table_names()
-    return ", ".join(table_names)
+    return "Table:, ".join(table_names)
 
 
 if __name__ == "__main__":
