@@ -19,7 +19,7 @@ services:
   mysql-db:
     image: mysql:latest
     environment:
-      MYSQL_ROOT_PASSWORD: Password123.
-      MYSQL_DATABASE: odb
-      MYSQL_USER: user
-      MYSQL_PASSWORD: Password123.
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
