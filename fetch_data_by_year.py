@@ -1,7 +1,7 @@
 import os
 from dotenv import load_dotenv
 from flask import render_template, request
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 
 load_dotenv()
@@ -27,6 +27,10 @@ def fetch_yearly_data():
 
     if request.method == "POST":
         selected_year = request.form.get("year")
-        filtered_df = df[df["iyear"] == int(selected_year)]
+        with engine.connect() as conn:
+            query = text("SELECT * FROM terrorist_table WHERE iyear=:year")
+            filtered_df = pd.read_sql_query(
+                sql=query, con=conn, params={"year": selected_year}
+            )
         table = filtered_df.to_html()
     return render_template("year_data.html", years=years, table=table)
