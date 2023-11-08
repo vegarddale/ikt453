@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from fetch_all_data import fetch_data
 from fetch_data_by_year import fetch_yearly_data
-from flask import request
+from insert_data import insert_data_func
 
 app = Flask("Terrorist Database")
 
@@ -19,6 +19,11 @@ def data_route():
 @app.route("/yearly_data", methods=["GET", "POST"])
 def yearly_data_route():
     return fetch_yearly_data()
+
+
+@app.route("/insert_data")
+def insert_route():
+    return insert_data_func()
 
 
 if __name__ == "__main__":
