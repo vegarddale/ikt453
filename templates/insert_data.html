@@ -1,0 +1,15 @@
+{% extends "home.html" %}
+{% block content %}
+<h1>Add Data</h1>
+<form method="POST">
+    <div class="form-group">
+        <label for="fieldname1">Field Name 1</label>
+        <input type="text" class="form-control" id="fieldname1" name="fieldname1" placeholder="Enter field value 1">
+    </div>
+    <div class="form-group">
+        <label for="fieldname2">Field Name 2</label>
+        <input type="text" class="form-control" id="fieldname2" name="fieldname2" placeholder="Enter field value 2">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
