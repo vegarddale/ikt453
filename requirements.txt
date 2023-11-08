@@ -5,3 +5,4 @@ openpyxl
 SQLAlchemy
 pymysql
 cryptography
+python-dotenv
