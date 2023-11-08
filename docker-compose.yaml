@@ -14,7 +14,7 @@ services:
       - DEBUG=True
     command: ["sh", "-c", "python load_db.py & python app.py"]
     depends_on:
-      - mysql-db 
+      - mysql-db
 
   mysql-db:
     image: mysql:latest

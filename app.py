@@ -1,17 +1,24 @@
-from flask import Flask
-from load_data import data
+from flask import Flask, render_template
+from fetch_all_data import fetch_data
+from fetch_data_by_year import fetch_yearly_data
+from flask import request
 
 app = Flask("Terrorist Database")
 
 
 @app.route("/")
-def hello():
-    return "Hello, Flask!"
+def home():
+    return render_template("home.html")
 
 
-@app.route("/data")
+@app.route("/all_data")
 def data_route():
-    return data()
+    return fetch_data()
+
+
+@app.route("/yearly_data", methods=["GET", "POST"])
+def yearly_data_route():
+    return fetch_yearly_data()
 
 
 if __name__ == "__main__":
