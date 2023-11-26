@@ -11,7 +11,7 @@ db_password = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
 
 
-def insert_data_func():
+"""def insert_data_func():
     engine = create_engine(
         "mysql+pymysql://" + db_username + ":" + db_password + "@mysql-db/" + db_name
     )
@@ -21,4 +21,4 @@ def insert_data_func():
         query = "SELECT * FROM terrorist_table"  # replace 'table_name' with your table's name
         df = pd.read_sql_query(sql=query, con=conn)
     table = df.to_html()
-    return render_template("insert_data.html")
+    return render_template("insert_data.html")"""

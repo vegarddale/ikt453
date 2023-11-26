@@ -6,3 +6,4 @@ SQLAlchemy
 pymysql
 cryptography
 python-dotenv
+pyodbc

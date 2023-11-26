@@ -11,7 +11,7 @@ db_password = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
 
 
-def fetch_yearly_data():
+"""def fetch_yearly_data():
     engine = create_engine(
         "mysql+pymysql://" + db_username + ":" + db_password + "@mysql-db/" + db_name
     )
@@ -33,4 +33,4 @@ def fetch_yearly_data():
                 sql=query, con=conn, params={"year": selected_year}
             )
         table = filtered_df.to_html()
-    return render_template("year_data.html", years=years, table=table)
+    return render_template("year_data.html", years=years, table=table)"""

@@ -4,22 +4,26 @@ services:
   flask-app:
     build:
       context: ./
+      dockerfile: Dockerfile
     image: flask-app
     ports:
       - "8000:8000"
     volumes:
       - ./app.py:/app/app.py
-      - ./load_db.py:/app/load_db.py
+    #  - ./load_db.py:/app/load_db.py
     environment:
       - DEBUG=True
-    command: ["sh", "-c", "python load_db.py & python app.py"]
+    command: ["sh", "-c", "python app.py"]
     depends_on:
-      - mysql-db
-
-  mysql-db:
-    image: mysql:latest
+      - mssql-db
+  
+  mssql-db:
+    image: mcr.microsoft.com/mssql/server
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-      MYSQL_DATABASE: ${DB_NAME}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
+      SA_PASSWORD: ${DB_PASSWORD}
+      ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
+    volumes:
+      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+
