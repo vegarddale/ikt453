@@ -1,5 +1,6 @@
 from flask import Flask, render_template
 from fetch_all_data import fetch_data
+from fetch_firebase_data import fetch_firebase_data
 
 # from fetch_data_by_year import fetch_yearly_data
 # from insert_data import insert_data_func
@@ -16,6 +17,11 @@ def home():
 @app.route("/all_data")
 def data_route():
     return fetch_data()
+
+
+@app.route("/firebase_data")
+def firestore_route():
+    return fetch_firebase_data()
 
 
 """@app.route("/yearly_data", methods=["GET", "POST"])

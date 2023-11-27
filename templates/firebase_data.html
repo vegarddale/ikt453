@@ -1,0 +1,9 @@
+{% extends "home.html" %}
+{% block content %}
+<h1>Dictionary Data</h1>
+  <ul>
+    {% for key, value in dict.items() %}
+      <li><strong>{{ key }}:</strong> {{ value }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}
