@@ -1,5 +1,6 @@
 # Use an official Python runtime as a parent image
 FROM python:3.8-slim-buster
+ENV PYTHONUNBUFFERED=1
 
 # Set the working directory in the container to /app
 WORKDIR /app
@@ -24,10 +25,16 @@ RUN chmod 644 /etc/apt/trusted.gpg.d/microsoft-archive-keyring.gpg
 
 # Add the Microsoft repository
 RUN curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list
+# sudo su -c "curl https://packages.microsoft.com/config/debian/10/prod.list > /etc/apt/sources.list.d/mssql-release.list" 
+# if run locally
 
 # Update the package list and install the necessary tools
 RUN apt-get update && \
  ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools
+# Locally: sudo su -c "apt-get update -o DPkg::options::='--force-overwrite' 
+# && ACCEPT_EULA=Y apt-get install -y msodbcsql17 mssql-tools"
+# maybe have to run: sudo su -c "apt --fix-broken -o DPkg::options::='--force-overwrite' install"
+ 
 
 # Add the current directory contents into the container at /app
 ADD . /app

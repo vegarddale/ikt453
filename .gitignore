@@ -2,3 +2,5 @@
 __pycache__/
 docker-entrypoint-initdb.d/script.sql
 creds
+docker-entrypoint-initdb.d/GTDB-1.bak
+loading_data.ipynb

@@ -13,7 +13,7 @@ app = firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 
-def fetch_firebase_data():
+def firestore_queries():
     doc_ref = db.collection("countries").document("Albania")
 
     doc = doc_ref.get()

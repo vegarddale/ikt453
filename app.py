@@ -1,12 +1,8 @@
 from flask import Flask, render_template
-from fetch_all_data import fetch_data
-from fetch_firebase_data import fetch_firebase_data
+from firestore import firestore_queries
+from relational_sql import relational_sql_queries
 
-# from fetch_data_by_year import fetch_yearly_data
-# from insert_data import insert_data_func
-# from fetch_region_data import fetch_region_data
-
-app = Flask("Terrorist Database")
+app = Flask("GTDB")
 
 
 @app.route("/")
@@ -14,29 +10,14 @@ def home():
     return render_template("home.html")
 
 
-@app.route("/all_data")
-def data_route():
-    return fetch_data()
+@app.route("/relational_sql", methods=["GET", "POST"])
+def relational_sql_route():
+    return relational_sql_queries()
 
 
-@app.route("/firebase_data")
+@app.route("/firestore", methods=["GET", "POST"])
 def firestore_route():
-    return fetch_firebase_data()
-
-
-"""@app.route("/yearly_data", methods=["GET", "POST"])
-def yearly_data_route():
-    return fetch_yearly_data()
-
-
-@app.route("/region_data", methods=["GET", "POST"])
-def region_data_route():
-    return fetch_region_data()
-
-
-@app.route("/insert_data")
-def insert_route():
-    return insert_data_func()"""
+    return firestore_queries()
 
 
 if __name__ == "__main__":
