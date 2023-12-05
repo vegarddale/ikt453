@@ -1,0 +1,147 @@
+{% extends "home.html" %}
+{% block content %}
+<h2>Query 1</h2>
+<form method="POST" action="relational_sql">    
+    <label for="region">Region:</label>
+    <select name="region" id="region">
+        {% for region in regions %}
+            <option value="{{ region }}">{{ region }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="target">Target Type:</label>
+    <select name="target" id="target">
+        {% for target in target_types %}
+            <option value="{{ target }}">{{ target }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="start_year">Start Year:</label>
+    <select name="start_year" id="start_year">
+        {% for start_year in start_years %}
+            <option value="{{ start_year }}">{{ start_year }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="end_year">End Year:</label>
+    <select name="end_year" id="end_year">
+        {% for end_year in end_years %}
+            <option value="{{ end_year }}">{{ end_year }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</form>
+<!--Results-->
+{{ table1|safe }}
+
+<h2>Query 2</h2>
+<form method="POST" action="relational_sql">    
+    <label for="region_q2">Region:</label>
+    <select name="region_q2" id="region_q2">
+        {% for region_q2 in regions_q2 %}
+            <option value="{{ region_q2 }}">{{ region_q2 }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="attack">Attack Type:</label>
+    <select name="attack" id="attack">
+        {% for attack in attack_types %}
+            <option value="{{ attack }}">{{ attack }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="years">The last x years:</label>
+    <input type="number" name="years" id="years" />
+    
+    <input type="submit" value="Fetch Data" />
+</form>
+<!--Results-->
+{{ table2|safe }}
+
+<h2>Query 3</h2>
+<form method="POST" action="relational_sql">    
+    <label for="region_q3">Region:</label>
+    <select name="region_q3" id="region_q3">
+        {% for region_q3 in regions_q3 %}
+            <option value="{{ region_q3 }}">{{ region_q3 }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="target_sub_type">Target sub-type:</label>
+    <select name="target_sub_type" id="target_sub_type">
+        {% for target_sub_type in target_sub_types %}
+            <option value="{{ target_sub_type }}">{{ target_sub_type }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="group">Group name:</label>
+    <select name="group" id="group">
+        {% for group in groups %}
+            <option value="{{ group }}">{{ group }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</form>
+<!--Results-->
+{{ table3|safe }}
+
+<h2>Query 4</h2>
+<form method="POST" action="relational_sql">    
+    <label for="country">Country:</label>
+    <select name="country" id="country">
+        {% for country in countries %}
+            <option value="{{ country }}">{{ country }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="weap">Weapon Detail:</label>
+    <select name="weap" id="weap">
+        {% for weap in weaps %}
+            <option value="{{ weap }}">{{ weap }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="start_year_q4">Start Year:</label>
+    <select name="start_year_q4" id="start_year_q4">
+        {% for start_year_q4 in start_years_q4 %}
+            <option value="{{ start_year_q4 }}">{{ start_year_q4 }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="end_year_q4">End Year:</label>
+    <select name="end_year_q4" id="end_year_q4">
+        {% for end_year_q4 in end_years_q4 %}
+            <option value="{{ end_year_q4 }}">{{ end_year_q4 }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</form>
+<!--Results-->
+{{ table4|safe }}
+
+<h2>Query 5</h2>
+<form method="POST" action="relational_sql">    
+    <label for="db_source">Database source:</label>
+    <select name="db_source" id="db_source">
+        {% for db_source in db_sources %}
+            <option value="{{ db_source }}">{{ db_source }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="damage_done">Damage done:</label>
+    <select name="damage_done" id="damage_done">
+        {% for damage_done in damage_dones %}
+            <option value="{{ damage_done }}">{{ damage_done }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</form>
+<!--Results-->
+{{ table5|safe }}
+
+{% endblock %}
+

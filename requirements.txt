@@ -7,3 +7,5 @@ pymysql
 cryptography
 python-dotenv
 pyodbc
+firebase_admin
+kafka-python
