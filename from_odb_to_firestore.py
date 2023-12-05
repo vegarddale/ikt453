@@ -3,7 +3,7 @@ from firebase_admin import credentials
 from firebase_admin import firestore
 import os
 from dotenv import load_dotenv
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 import pandas as pd
 import re
 
@@ -66,25 +66,17 @@ def transfer_data():
         "driver=ODBC+Driver+17+for+SQL+Server&TrustServerCertificate=yes"
         "&authentication=SqlPassword"
     )
-    # establish a database connection
+    # establish a database connection and fetch all fact tables
     with engine.connect() as conn:
-        # execute a sql query
-        query = "SELECT * FROM Country"  # replace 'table_name' with your table's name
-        df = pd.read_sql_query(sql=query, con=conn)
-        df = df.replace("\t", "", regex=True)
+        df = pd.read_sql_query(
+            text("EXEC SP_GET_all_FactTable"),
+            conn,
+        )
 
-    upload_df_to_firestore(df, "countries2", 0)
-
-    """doc_ref = db.collection("countries").document("Albania")
-
-    doc = doc_ref.get()
-    if doc.exists:
-        print(f"Document data: {doc.to_dict()}")
-    else:
-        print("No such document!")
-
-    city_dict = doc.to_dict()
-    return render_template("firebase_data.html", dict=city_dict)"""
+    fact_df = df.head(50)  # Use only the 50 first rows
+    fact_dicts = fact_df.to_dict("records")
+    for fact_dict in fact_dicts:
+        db.collection("fact_table").add(fact_dict)
 
 
 if __name__ == "__main__":
