@@ -1,10 +1,8 @@
-Sure, here's a basic README file for your repository:
+# GTDB Data Warehouse
 
----
+Data used can be downloaded [here](https://www.start.umd.edu/gtd/contact/download).
+From: START (National Consortium for the Study of Terrorism and Responses to Terrorism). (2022). Global Terrorism Database 1970 - 2020 [globalterrorismdb_0522dist.xlsx]. https://www.start.umd.edu/gtd
 
-# Project Title
-
-A brief description of what your project does and its purpose.
 
 ## Getting Started
 
