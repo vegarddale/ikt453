@@ -1,0 +1,16 @@
+{% extends "home.html" %}
+{% block content %}
+<h1>Transfer Data</h1>
+
+<h4>Transfer ODB data to Firestore</h4>
+<form method="POST" action="/transfer_data">
+    <button type="submit">Transfer</button>
+</form>
+
+<ul>
+    {% for dict in fact_dicts %}
+      <li>{{ dict }}</li>
+    {% endfor %}
+  </ul>
+ 
+{% endblock %}
