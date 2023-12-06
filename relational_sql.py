@@ -20,33 +20,35 @@ def relational_sql_queries():
     )
     with engine.connect() as conn:
         # execute a sql query
-        region_query = "SELECT region, region_txt FROM FactTab001"
+        region_query = "SELECT TOP (1000) region, region_txt FROM FactTab001"
         region_df = pd.read_sql_query(sql=region_query, con=conn)
 
-        target_query = "SELECT targtype1, targtype1_txt FROM FactTab002"
+        target_query = "SELECT TOP (1000) targtype1, targtype1_txt FROM FactTab002"
         target_df = pd.read_sql_query(sql=target_query, con=conn)
 
-        year_query = "SELECT iyear FROM FactTab001"
+        year_query = "SELECT TOP (1000) iyear FROM FactTab001"
         year_df = pd.read_sql_query(sql=year_query, con=conn)
 
-        attack_query = "SELECT attacktype1, attacktype1_txt FROM FactTab002"
+        attack_query = "SELECT TOP (1000) attacktype1, attacktype1_txt FROM FactTab002"
         attack_df = pd.read_sql_query(sql=attack_query, con=conn)
 
-        target_sub_query = "SELECT targsubtype1, targsubtype1_txt FROM FactTab002"
+        target_sub_query = (
+            "SELECT TOP (1000) targsubtype1, targsubtype1_txt FROM FactTab002"
+        )
         target_sub_df = pd.read_sql_query(sql=target_sub_query, con=conn)
         target_sub_df.dropna(how="any", inplace=True)  # Remove null values
 
-        group_query = "SELECT gname FROM FactTab002"
+        group_query = "SELECT TOP (1000) gname FROM FactTab002"
         group_df = pd.read_sql_query(sql=group_query, con=conn)
 
-        weap_query = "SELECT weapdetail FROM FactTab002"
+        weap_query = "SELECT TOP (1000) weapdetail FROM FactTab002"
         weap_df = pd.read_sql_query(sql=weap_query, con=conn)
         weap_df.dropna(how="any", inplace=True)  # Remove null values
 
-        country_query = "SELECT country, country_txt FROM FactTab001"
+        country_query = "SELECT TOP (1000) country, country_txt FROM FactTab001"
         country_df = pd.read_sql_query(sql=country_query, con=conn)
 
-        fact3_query = "SELECT propextent_txt, dbsource FROM FactTab003"
+        fact3_query = "SELECT TOP (1000) propextent_txt, dbsource FROM FactTab003"
         fact3_df = pd.read_sql_query(sql=fact3_query, con=conn)
         fact3_df.dropna(how="any", inplace=True)  # Remove null values
 

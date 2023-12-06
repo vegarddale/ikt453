@@ -10,7 +10,6 @@ services:
       - "8000:8000"
     volumes:
       - ./app.py:/app/app.py
-    #  - ./load_db.py:/app/load_db.py
     environment:
       - DEBUG=True
     command: ["sh", "-c", "python app.py"]
