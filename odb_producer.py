@@ -14,7 +14,7 @@ db_host_local = os.getenv("DB_HOST_LOCAL")
 
 
 def odb_producer():
-    odb_aggregate_query = text("SELECT TOP (10) * FROM FactTab001")
+    odb_aggregate_query = text("EXEC SP_GET_all_FactTable")
 
     producer = KafkaProducer(bootstrap_servers="localhost:29092", api_version=(2, 0, 2))
 
@@ -27,7 +27,7 @@ def odb_producer():
 
         with engine.connect() as connection:
             result = connection.execute(odb_aggregate_query)
-            aggr_tuples = result.fetchall()
+            aggr_tuples = result.fetchmany(10)
             connection.close()
 
         for tuple in aggr_tuples:
