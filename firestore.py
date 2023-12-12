@@ -15,6 +15,7 @@ db = firestore.client()
 
 
 def firestore_queries():
+    # Query 1-5
     docs = list(db.collection("fact_table").stream())
 
     regions = set([doc.to_dict()["region_txt"] for doc in docs])
@@ -37,11 +38,31 @@ def firestore_queries():
 
     damage_dones = set([doc.to_dict()["propextent_txt"] for doc in docs])
 
+    # Query 6
+    docs_q6 = list(db.collection("city_gname").stream())
+
+    gnames_q6 = set([doc.to_dict()["gname"] for doc in docs_q6])
+
+    cities = set([doc.to_dict()["city"] for doc in docs_q6])
+
+    # Query 7
+    docs_q7 = list(db.collection("country_gname").stream())
+
+    countries_q7 = set([doc.to_dict()["country_txt"] for doc in docs_q7])
+
+    # Query 8
+    docs_q8 = list(db.collection("region_gname").stream())
+
+    regions_q8 = set([doc.to_dict()["region_txt"] for doc in docs_q8])
+
     query1_dicts = []
     query2_dicts = []
     query3_dicts = []
     query4_dicts = []
     query5_dicts = []
+    query6_dicts = []
+    query7_dicts = []
+    query8_dicts = []
 
     # Query 1
     selected_target_type = request.form.get("target")
@@ -135,6 +156,45 @@ def firestore_queries():
 
         query5_dicts = [doc.to_dict() for doc in query5.stream()]
 
+    # Query 6
+    selected_city = request.form.get("city")
+    selected_gname_q6 = request.form.get("gname_q6")
+
+    if selected_gname_q6 and selected_city:
+        query6 = (
+            db.collection("city_gname")
+            .where(filter=FieldFilter("gname", "==", str(selected_gname_q6)))
+            .where(filter=FieldFilter("city", "==", str(selected_city)))
+        )
+
+        query6_dicts = [doc.to_dict() for doc in query6.stream()]
+
+    # Query 7
+    selected_country_q7 = request.form.get("country_q7")
+    selected_gname_q7 = request.form.get("gname_q7")
+
+    if selected_country_q7 and selected_gname_q7:
+        query7 = (
+            db.collection("country_gname")
+            .where(filter=FieldFilter("country_txt", "==", str(selected_country_q7)))
+            .where(filter=FieldFilter("gname", "==", str(selected_gname_q7)))
+        )
+
+        query7_dicts = [doc.to_dict() for doc in query7.stream()]
+
+    # Query 8
+    selected_region_q8 = request.form.get("region_q8")
+    selected_gname_q8 = request.form.get("gname_q8")
+
+    if selected_region_q8 and selected_gname_q8:
+        query8 = (
+            db.collection("region_gname")
+            .where(filter=FieldFilter("region_txt", "==", str(selected_region_q8)))
+            .where(filter=FieldFilter("gname", "==", str(selected_gname_q8)))
+        )
+
+        query8_dicts = [doc.to_dict() for doc in query8.stream()]
+
     return render_template(
         "firebase_data.html",
         regions=regions,
@@ -157,4 +217,13 @@ def firestore_queries():
         db_sources=db_sources,
         damage_dones=damage_dones,
         query5_dicts=query5_dicts,
+        cities=cities,
+        gnames_q6=gnames_q6,
+        query6_dicts=query6_dicts,
+        countries_q7=countries_q7,
+        gnames_q7=gnames_q6,
+        query7_dicts=query7_dicts,
+        regions_q8=regions_q8,
+        gnames_q8=gnames_q6,
+        query8_dicts=query8_dicts,
     )

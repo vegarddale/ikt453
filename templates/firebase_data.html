@@ -147,6 +147,7 @@
 <form method="POST" action="firestore">    
   <label for="db_source">Database source:</label>
     <select name="db_source" id="db_source" style="width: 200px;">
+        <option value="" selected disabled>None</option>
         {% for db_source in db_sources %}
             <option value="{{ db_source }}">{{ db_source }}</option>
         {% endfor %}
@@ -154,6 +155,7 @@
     
     <label for="damage_done">Damage done:</label>
     <select name="damage_done" id="damage_done" style="width: 200px;">
+        <option value="" selected disabled>None</option>
         {% for damage_done in damage_dones %}
             <option value="{{ damage_done }}">{{ damage_done }}</option>
         {% endfor %}
@@ -167,4 +169,90 @@
     <li>{{ dict }}</li>
   {% endfor %}
 </ul>
+
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Q6: Fetch number of kills and incidents in (City) by (Terrorist group)</h4>
+<form method="POST" action="firestore">    
+  <label for="city">City:</label>
+    <select name="city" id="city" style="width: 200px;">
+        {% for city in cities %}
+            <option value="{{ city }}">{{ city }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="gname_q6">Terrorist group:</label>
+    <select name="gname_q6" id="gname_q6" style="width: 200px;">
+        {% for gname_q6 in gnames_q6 %}
+            <option value="{{ gname_q6 }}">{{ gname_q6 }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</from>  
+<!--Results-->
+<ul>
+  {% for dict in query6_dicts %}
+    <li>{{ dict }}</li>
+  {% endfor %}
+</ul>
+
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Q7: Fetch number of kills and incidents in (Country) by (Terrorist group)</h4>
+<form method="POST" action="firestore">    
+  <label for="country_q7">Country:</label>
+    <select name="country_q7" id="country_q7" style="width: 200px;">
+        <option value="" selected disabled>None</option>
+        {% for country_q7 in countries_q7 %}
+            <option value="{{ country_q7 }}">{{ country_q7 }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="gname_q7">Terrorist group:</label>
+    <select name="gname_q7" id="gname_q7" style="width: 200px;">
+        <option value="" selected disabled>None</option>
+        {% for gname_q7 in gnames_q7 %}
+            <option value="{{ gname_q7 }}">{{ gname_q7 }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</from>  
+<!--Results-->
+<ul>
+  {% for dict in query7_dicts %}
+    <li>{{ dict }}</li>
+  {% endfor %}
+</ul>
+
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Q8: Fetch number of kills and incidents in (Region) by (Terrorist group)</h4>
+<form method="POST" action="firestore">    
+  <label for="region_q8">Region:</label>
+    <select name="region_q8" id="region_q8" style="width: 200px;">
+        <option value="" selected disabled>None</option>
+        {% for region_q8 in regions_q8 %}
+            <option value="{{ region_q8 }}">{{ region_q8 }}</option>
+        {% endfor %}
+    </select>
+    
+    <label for="gname_q8">Terrorist group:</label>
+    <select name="gname_q8" id="gname_q8" style="width: 200px;">
+        <option value="" selected disabled>None</option>
+        {% for gname_q8 in gnames_q8 %}
+            <option value="{{ gname_q8 }}">{{ gname_q8 }}</option>
+        {% endfor %}
+    </select>
+    
+    <input type="submit" value="Fetch Data" />
+</from>  
+<!--Results-->
+<ul>
+  {% for dict in query8_dicts %}
+    <li>{{ dict }}</li>
+  {% endfor %}
+</ul>
+
 {% endblock %}
