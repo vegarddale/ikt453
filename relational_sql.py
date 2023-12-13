@@ -9,12 +9,18 @@ load_dotenv()
 db_username = os.getenv("DB_USERNAME")
 db_password = os.getenv("DB_PASSWORD")
 db_name = os.getenv("DB_NAME")
+db_name_2 = os.getenv("DB_NAME_2")
 db_host = os.getenv("DB_HOST_LOCAL")
 
 
 def relational_sql_queries():
     engine = create_engine(
         f"mssql+pyodbc://{db_username}:{db_password}@{db_host}/{db_name}?"
+        "driver=ODBC+Driver+17+for+SQL+Server&TrustServerCertificate=yes"
+        "&authentication=SqlPassword"
+    )
+    engine_2 = create_engine(
+        f"mssql+pyodbc://{db_username}:{db_password}@{db_host}/{db_name_2}?"
         "driver=ODBC+Driver+17+for+SQL+Server&TrustServerCertificate=yes"
         "&authentication=SqlPassword"
     )
@@ -69,11 +75,21 @@ def relational_sql_queries():
     table3 = ""
     table4 = ""
     table5 = ""
+    table6 = ""
+    table7 = ""
+    table8 = ""
+    table9 = ""
+    table10 = ""
     query1_df = pd.DataFrame()
     query2_df = pd.DataFrame()
     query3_df = pd.DataFrame()
     query4_df = pd.DataFrame()
     query5_df = pd.DataFrame()
+    query6_df = pd.DataFrame()
+    query7_df = pd.DataFrame()
+    query8_df = pd.DataFrame()
+    query9_df = pd.DataFrame()
+    query10_df = pd.DataFrame()
 
     if request.method == "POST":
         # Query 1
@@ -205,11 +221,41 @@ def relational_sql_queries():
                         "propextent_txt": str(selected_damage_done),
                     },
                 )
+        # Query 6
+        with engine_2.connect() as conn:
+            query6_df = pd.read_sql_query(text("EXEC SP_Most_Active_gang"), conn)
+            query6_df = query6_df.head(10)
+
+        # Query 7
+        with engine_2.connect() as conn:
+            query7_df = pd.read_sql_query(text("SP_Most_dangerous_city"), conn)
+            query7_df = query7_df.head(10)
+
+        # Query 8
+        with engine_2.connect() as conn:
+            query8_df = pd.read_sql_query(text("SP_Most_dangerous_Year"), conn)
+            query8_df = query8_df.head(10)
+
+        # Query 9
+        with engine_2.connect() as conn:
+            query9_df = pd.read_sql_query(text("SP_Most_trageted_Units"), conn)
+            query9_df = query9_df.head(10)
+
+        # Query 10
+        with engine_2.connect() as conn:
+            query10_df = pd.read_sql_query(text("SP_Most_used_weapon"), conn)
+            query10_df = query10_df.head(10)
+
         table1 = query1_df.to_html()
         table2 = query2_df.to_html()
         table3 = query3_df.to_html()
         table4 = query4_df.to_html()
         table5 = query5_df.to_html()
+        table6 = query6_df.to_html()
+        table7 = query7_df.to_html()
+        table8 = query8_df.to_html()
+        table9 = query9_df.to_html()
+        table10 = query10_df.to_html()
     return render_template(
         "sql_queries.html",
         regions=regions,
@@ -232,4 +278,9 @@ def relational_sql_queries():
         damage_dones=damage_dones,
         db_sources=db_sources,
         table5=table5,
+        table6=table6,
+        table7=table7,
+        table8=table8,
+        table9=table9,
+        table10=table10,
     )
