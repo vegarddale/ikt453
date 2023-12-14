@@ -28,21 +28,21 @@ def dw_consumer():
             in_split = in_string.split(",")
 
             eventid = in_split[0].strip(" '")
-            year = in_split[1].strip(" '")
-            month = in_split[2].strip(" '")
-            day = in_split[3].strip(" '")
-            country_id = in_split[4].strip(" '")
+            year = int(in_split[1].strip(" '"))
+            month = int(in_split[2].strip(" '"))
+            day = int(in_split[3].strip(" '"))
+            country_id = int(in_split[4].strip(" '"))
             country_name = in_split[5].strip(" '")
-            region_id = in_split[6].strip(" '")
+            region_id = int(in_split[6].strip(" '"))
             region_name = in_split[7].strip(" '")
             provstate = in_split[8].strip(" '")
             city = in_split[9].strip(" '")
             location = in_split[10].strip(" '")
-            attack_type_id = in_split[13].strip(" '")
+            attack_type_id = int(in_split[13].strip(" '"))
             attack_type = in_split[14].strip(" '")
-            targ_type_id = in_split[15].strip(" '")
+            targ_type_id = int(in_split[15].strip(" '"))
             targ_type = in_split[16].strip(" '")
-            targ_sub_type_id = in_split[17].strip(" '")
+            targ_sub_type_id = int(in_split[17].strip(" '"))
             targ_sub_type = in_split[18].strip(" '")
             corp = in_split[19].strip(" '")
             target = in_split[20].strip(" '")
@@ -129,7 +129,7 @@ def dw_consumer():
                 }
                 db.collection("fact").document(eventid).set(updict)
                 print("\nAGGREGATED TUPLES are uploaded to Firestore")
-            except Error as e:
+            except OSError as e:
                 print(e)
 
 
