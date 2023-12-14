@@ -9,3 +9,6 @@ python-dotenv
 pyodbc
 firebase_admin
 kafka-python
+neo4j
+neomodel
+
