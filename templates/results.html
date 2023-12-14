@@ -1,0 +1,180 @@
+{% extends "home.html" %}
+{% block content %}
+<h4>Choose a Query:</h4>
+
+
+<h4>Show us the number of incidents happened in "Region" between 1980 and 2000 where target_type1_txt was "Target Type"</h4>
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q1_region_txt">Region txt:</label>
+    <input type="text" id="q1_region_txt" name="region_txt" required>
+    
+    <label for="q1_targtype1_txt">Target Type:</label>
+    <input type="text" id="q1_targtype1_txt" name="targtype1_txt" required>
+
+    <label for="q1_start_year">Start Year:</label>
+    <input type="number" id="q1_start_year" name="start_year" required>
+
+    <label for="q1_end_year">End Year:</label>
+    <input type="number" id="q1_end_year" name="end_year" required>
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q1">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    
+    {% if result_data is defined and query_id == "Q1"%}
+        {% for result in result_data %}
+            <li>Incidents: {{ result.total_incidents }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>which cities are most effected with "Target Type" in "Region" in last "20 years", share with details </h4>
+
+
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q2_attack_type">Attack Type:</label>
+    <input type="text" id="q2_attack_type" name="attack_type" required>
+
+    <label for="q2_region_txt">Region txt:</label>
+    <input type="text" id="q2_region_txt" name="region_txt" required>
+    
+    <label for="q2_start_year">Start Year:</label>
+    <input type="number" id="q2_start_year" name="start_year" required>
+
+    <label for="q2_end_year">End Year:</label>
+    <input type="number" id="q2_end_year" name="end_year" required>
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q2">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    {% if result_data is defined and query_id == "Q2" %}
+        {% for result in result_data %}
+            <li>City ID: {{ result.city_id }}, Total Incidents: {{ result.total_incidents }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Incidents happened in "India" between "1981 to 2001" where attach type was "Bombing/Explosion" </h4>
+
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q4_attack_type">Attack Type:</label>
+    <input type="text" id="q4_attack_type" name="attack_type">
+
+    <label for="q4_country_txt">Country:</label>
+    <input type="text" id="q4_country_txt" name="country_txt">
+    
+    <label for="q4_start_year">Start Year:</label>
+    <input type="number" id="q4_start_year" name="start_year">
+
+    <label for="q4_end_year">End Year:</label>
+    <input type="number" id="q4_end_year" name="end_year">
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q4">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    {% if result_data is defined and query_id == "Q4" %}
+        {% for result in result_data %}
+            <li>Q4 Result: {{ result }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Show number of incidents where damage =  "Minor (likely < $1 million)" and the gname was "White supremacists/nationalists" </h4>
+
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q5_gname_id">Group Name ID:</label>
+    <input type="text" id="q5_gname_id" name="gname_id">
+
+    <label for="q5_propextent_txt">Property Extent:</label>
+    <input type="text" id="q5_propextent_txt" name="propextent_txt">
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q5">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    {% if result_data is defined and query_id == "Q5" %}
+        {% for result in result_data %}
+            <li>Total Incidents: {{ result.total_incidents }}, Gname ID: {{ result.gname_id }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Number of kills and incidents in city by terrorist group</h4>
+
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q6_gname_id">Group Name ID:</label>
+    <input type="text" id="q6_gname_id" name="gname_id">
+
+    <label for="q6_city_id">City ID:</label>
+    <input type="text" id="q6_city_id" name="city_id">
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q6">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    {% if result_data is defined and query_id == "Q6" %}
+        {% for result in result_data %}
+            <li>Gname ID: {{ result.gname_id }}, City ID: {{ result.city_id }}, Total Incidents: {{ result.total_incidents }}, Total Kills: {{ result.total_kills }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Number of kills and incidents in country by terrorist group</h4>
+
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q7_country_txt">Country:</label>
+    <input type="text" id="q7_country_txt" name="country_txt">
+
+    <label for="q7_gname_id">Group Name ID:</label>
+    <input type="text" id="q7_gname_id" name="gname_id">
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q7">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    {% if result_data is defined and query_id == "Q7" %}
+        {% for result in result_data %}
+            <li>Country: {{ result.country_txt }}, Gname ID: {{ result.gname_id }}, Total Incidents: {{ result.total_incidents }}, Total Kills: {{ result.total_kills }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+<p>----------------------------------------------------------------------------------------------------------------------------</p>
+
+<h4>Number of kills and incidents in cityregion by terrorist group</h4>
+
+<form action="/neo4j" method="post" autocomplete="off">
+    <label for="q8_region_txt">Region txt:</label>
+    <input type="text" id="q8_region_txt" name="region_txt">
+
+    <label for="q8_gname_id">Group Name ID:</label>
+    <input type="text" id="q8_gname_id" name="gname_id">
+    
+    <input type="hidden" id="query_number" name="query_number" value="Q8">
+    
+    <button type="submit">Run Query</button>
+</form>
+<ul>
+    {% if result_data is defined and query_id == "Q8" %}
+        {% for result in result_data %}
+            <li>Region: {{ result.region_txt }}, Gname ID: {{ result.gname_id }}, Total Incidents: {{ result.total_incidents }}, Total Kills: {{ result.total_kills }}</li>
+        {% endfor %}
+    {% endif %}
+</ul>
+
+{% endblock %}
