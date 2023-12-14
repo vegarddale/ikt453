@@ -10,11 +10,14 @@ services:
       - "8000:8000"
     volumes:
       - ./app.py:/app/app.py
+      - ./load_db.py:/app/load_db.py
     environment:
       - DEBUG=True
-    command: ["sh", "-c", "python app.py"]
+    command: ["sh", "-c", "python load_db.py && python load_neo4j_dw.py && python app.py "]
     depends_on:
       - mssql-db
+      - mysql-db
+      - neo4j-db
   
   mssql-db:
     image: mcr.microsoft.com/mssql/server
@@ -25,7 +28,26 @@ services:
       - "1433:1433"
     volumes:
       - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-    
+      
+  mysql-db:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_DB_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DB_NAME}
+      MYSQL_USER: ${MYSQL_DB_USERNAME}
+      MYSQL_PASSWORD: ${MYSQL_DB_PASSWORD}
+    depends_on:
+      - mssql-db
+  neo4j-db:
+    image: neo4j:latest
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: neo4j/Password123.
+    depends_on:
+      - mssql-db
+      
   broker:
     image: confluentinc/cp-kafka:5.5.1
     hostname: broker
