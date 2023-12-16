@@ -28,23 +28,38 @@ git clone https://github.com/vegarddale/ikt453.git
 cd ikt453
 ```
 
-3. Build the Docker image:
+3. Add sql script file to create database and load data
+
+If you have a script file put it in folder in the repo called 
+
+```bash
+docker-entrypoint-initdb.d
+```
+You can then exec into the mssql container when it is running
+
+```bash
+docker exec -it <docker_id> bash
+```
+
+and run the script file to build the database and load the data.
+
+```bash
+/opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P Password123. -i script.sql
+```
+
+4. Build the Docker image:
 
 ```bash
 docker-compose build
 ```
 
-4. Start the Docker containers:
+5. Start the Docker containers:
 
 ```bash
 docker-compose up
 ```
 
 The application should now be running at `http://localhost:8000`.
-
-## Running the tests
-
-Explain how to run the automated tests for this system.
 
 ## Built With
 
