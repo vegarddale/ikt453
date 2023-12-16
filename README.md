@@ -41,6 +41,12 @@ You can then exec into the mssql container when it is running
 docker exec -it <docker_id> bash
 ```
 
+cd into the folder
+
+```bash
+cd /docker-entrypoint-initdb.d
+```
+
 and run the script file to build the database and load the data.
 
 ```bash
